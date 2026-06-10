@@ -1,0 +1,82 @@
+flowchart TD
+    %% Entry Point
+    Start([Power On]) --> InitHW[Init Hardware\nStdio, SPI, GPIO, Clocks]
+    InitHW --> InitCam[Init Camera\nArducam Mega]
+    InitCam --> LaunchC1[Launch Core 1]
+
+    %% ---------------------------------------------------------
+    %% CORE 1: Machine Learning Pipeline
+    %% ---------------------------------------------------------
+    subgraph C1 [Core 1: ML Pipeline]
+        direction TB
+        C1_Start([Core 1 Entry])
+        LoadModel[Load TFLite Model]
+        InitInterp[Init Interpreter\n& Allocate Tensors]
+        SignalReady[Signal: Model Ready]
+        WaitCmd{Wait for Command}
+        
+        %% Processing Steps
+        ReadJPEG[Read Shared JPEG Buffer]
+        Decode[Decode & Resize\nto 96x96 RGB]
+        Populate["Populate Input Tensor\n(int8/float conversion)"]
+        Invoke[Run Inference\ninterpreter->Invoke]
+        PostProc[Post-Process\nUpdate Shared Result]
+        SignalDone[Signal: CMD_DONE]
+
+        C1_Start --> LoadModel
+        LoadModel --> InitInterp
+        InitInterp --> SignalReady
+        SignalReady --> WaitCmd
+        
+        WaitCmd -->|CMD_PROCESS_IMAGE| ReadJPEG
+        ReadJPEG --> Decode
+        Decode --> Populate
+        Populate --> Invoke
+        Invoke --> PostProc
+        PostProc --> SignalDone
+        SignalDone --> WaitCmd
+    end
+
+    %% ---------------------------------------------------------
+    %% CORE 0: Application & Hardware Control
+    %% ---------------------------------------------------------
+    subgraph C0 [Core 0: Main Loop]
+        direction TB
+        WaitModel{Wait for\nModel Ready}
+        
+        %% Gating Logic
+        CheckPin{Check PIN 17}
+        WaitPin[Wait / Low Power]
+        
+        %% Capture & Control
+        Capture[Capture JPEG\nto Shared Buffer]
+        SendCmd[Send: CMD_PROCESS_IMAGE]
+        WaitResult{Wait for\nResult}
+        ReadRes[Read Shared Result]
+        Output[Print to Serial\n& Update OLED]
+
+        WaitModel --> CheckPin
+        CheckPin -- LOW --> WaitPin
+        WaitPin --> CheckPin
+        CheckPin -- HIGH --> Capture
+        Capture --> SendCmd
+        SendCmd --> WaitResult
+        WaitResult --> ReadRes
+        ReadRes --> Output
+        Output --> CheckPin
+    end
+
+    %% ---------------------------------------------------------
+    %% Inter-Core Communication (Queues & Shared Memory)
+    %% ---------------------------------------------------------
+    LaunchC1 -.-> C1_Start
+    SignalReady -.->|Queue| WaitModel
+    SendCmd -.->|Queue| WaitCmd
+    SignalDone -.->|Queue| WaitResult
+    
+    %% Shared Data Access
+    Capture -.->|Write| SharedMem[(Shared Memory\nJPEG Buffer)]
+    SharedMem -.->|Read| ReadJPEG
+    
+    PostProc -.->|Write| SharedRes[(Shared Memory\nInferenceResult)]
+    SharedRes -.->|Read| ReadRes

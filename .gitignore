@@ -1,0 +1,25 @@
+# ─── Large data (download / regenerate separately) ──────────────────
+# COCO source images (121 GB) and derived YOLO labels + caches (883 MB).
+# Regenerate labels from datasets/coco/annotations/ via TensorFlow/Dataset.py.
+datasets/coco/images/
+datasets/coco/labels/
+
+# ─── Python environment ─────────────────────────────────────────────
+.venv-gpu/
+.venv/
+__pycache__/
+*.pyc
+
+# ─── Firmware build output ──────────────────────────────────────────
+ThingPlus-TFMicro-CatDogPerson/build/
+
+# ─── Local editor / tooling state ───────────────────────────────────
+.claude/settings.local.json
+**/.claude/settings.local.json
+
+# ─── OS cruft ───────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── Old git history backup (delete once new repo is confirmed good) ─
+.git.old/
