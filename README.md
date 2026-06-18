@@ -12,7 +12,7 @@
 ![Kernels](https://img.shields.io/badge/Accel-CMSIS--NN-0091BD)
 ![Model](https://img.shields.io/badge/Model-MobileNetV2%20%CE%B1%3D0.35%20%E2%80%A2%20int8-success)
 ![Footprint](https://img.shields.io/badge/Model-136%20KB%20%E2%80%A2%20Arena%20155%20KB-blue)
-![Power](https://img.shields.io/badge/Power-%3C0.5%20W-brightgreen)
+![Power](https://img.shields.io/badge/Power-%3C1.0%20W-brightgreen)
 
 </div>
 
