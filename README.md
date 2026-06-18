@@ -61,7 +61,7 @@ and inference run concurrently. The result is a self-contained vision module tha
 |---|---|---|
 | **Compute** | GPU / quad-core Cortex-A | Dual Cortex-M0+ @ 133 MHz |
 | **OS** | Linux | Bare-metal firmware |
-| **Power** | 5–10 W | **< 0.5 W** |
+| **Power** | 5–10 W | **< 1.0 W** |
 | **Memory** | 1–8 GB DRAM | 264 KB SRAM |
 | **Model** | Full FP32 CNN | **136 KB int8 CNN** |
 | **Cost** | $60–$400 | ~$20 |
