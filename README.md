@@ -277,13 +277,17 @@ The sweep makes the cost of that trade-off explicit and reproducible.
 
 <div align="center">
 
-![Inference demo](TensorFlow/Metrics/inference_demo.png)
+![Individual Model Size](TensorFlow/Metrics/individual_model_size.png)
 
-![Per-config metrics](TensorFlow/Metrics/combined_model_metrics.png)
+![Individual Trainable Parameters](TensorFlow/Metrics/individual_trainable_params.png)
 
-![Confusion matrices](TensorFlow/Metrics/combined_confusion_matrices.png)
+![Individual Overall F1](TensorFlow/Metrics/individual_overall_f1.png)
 
-![Efficiency dashboard](TensorFlow/Metrics/combined_efficiency_dashboard.png)
+![Combined Training Curves](TensorFlow/Metrics/combined_training_curves.png)
+
+![Confusion Matrices](TensorFlow/Metrics/combined_confusion_matrices.png)
+  
+![Inference Demo](TensorFlow/Metrics/inference_demo.png)
 
 </div>
 
