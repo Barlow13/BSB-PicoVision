@@ -396,16 +396,6 @@ and PIN-17 gated capture.
 
 ---
 
-## Roadmap
-
-- [ ] Improve Dog/Cat separation (hard-negative mining, targeted augmentation).
-- [ ] Quantization-aware training to recover accuracy lost to post-training int8.
-- [ ] Lower-latency capture path (raw/RGB instead of JPEG decode).
-- [ ] Duty-cycled sleep between inferences for an even lower average-power figure.
-- [ ] On-device threshold tuning via the fuel-gauge-aware power state.
-
----
-
 ## Author & Acknowledgments
 
 **Brady Barlow** — Oklahoma State University.
