@@ -5,7 +5,7 @@
 
 ![Cover](https://github.com/user-attachments/assets/164d97c0-040b-4f30-93dc-a08067cfdc1e)
 
-**A sub-0.5 W vision subsystem that recognizes interaction targets — _Person, Dog, Cat_ — on a $20 dual-core microcontroller, with no cloud, no GPU, and no Linux.**
+**A sub-1.0 W vision subsystem that recognizes interaction targets — _Person, Dog, Cat_ — on a $20 dual-core microcontroller, with no cloud, no GPU, and no Linux.**
 
 ![Platform](https://img.shields.io/badge/Platform-RP2040%20(Cortex--M0%2B)-7b2ff7)
 ![Framework](https://img.shields.io/badge/ML-TensorFlow%20Lite%20Micro-FF6F00)
@@ -48,7 +48,7 @@ quantized convolutional neural network onto a **SparkFun Thing Plus RP2040** —
 Cortex-M0+ microcontroller — and splits the workload across both cores so that capture, control,
 and inference run concurrently. The result is a self-contained vision module that performs
 **multi-label classification** of *Person / Dog / Cat / None* entirely on-device, drawing under
-**0.5 W**.
+**1.0 W**.
 
 > **Multi-label, not multi-class:** the network emits an independent probability per class, so it
 > can report a person *and* a dog in the same frame, or nothing at all.
@@ -273,7 +273,8 @@ The sweep makes the cost of that trade-off explicit and reproducible.
 - **Latency:** ~890 ms per inference (~1.1 FPS) on Core 1
 - **Model:** 136 KB in flash
 - **Tensor arena:** 155 KB (~58% of the RP2040's 264 KB SRAM)
-- **Active power:** < 0.5 W
+- **Active inference power:**  0.66 W
+- **Active idle power:**  0.34 W
 
 <div align="center">
 
